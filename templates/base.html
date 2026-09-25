@@ -1,0 +1,39 @@
+{% load static %}
+<!doctype html>
+<html lang="ru">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{% block title %}BioFlora — цветочный магазин{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+<header class="header">
+    <div class="container nav">
+        <a class="logo" href="{% url 'home' %}">Bio<span>Flora</span></a>
+        <nav>
+            <a href="{% url 'catalog' %}">Каталог</a>
+            <a href="{% url 'home' %}#about">О нас</a>
+            <a href="{% url 'home' %}#contacts">Контакты</a>
+            <a class="cart-link" href="{% url 'cart' %}">Корзина {% if cart_count %}<b>{{ cart_count }}</b>{% endif %}</a>
+        </nav>
+    </div>
+</header>
+
+{% if messages %}
+<div class="container messages">
+    {% for message in messages %}<div class="message">{{ message }}</div>{% endfor %}
+</div>
+{% endif %}
+
+<main>{% block content %}{% endblock %}</main>
+
+<footer class="footer" id="contacts">
+    <div class="container footer-grid">
+        <div><div class="logo">Bio<span>Flora</span></div><p>Свежие цветы с заботой о каждом букете.</p></div>
+        <div><strong>Контакты</strong><p>+996 555 123 456<br>Ежедневно: 09:00–21:00</p></div>
+        <div><strong>Доставка</strong><p>По городу в день заказа.<br>Бережная упаковка.</p></div>
+    </div>
+</footer>
+</body>
+</html>

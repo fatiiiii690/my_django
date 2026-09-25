@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% block title %}BioFlora — цветы с душой{% endblock %}
+{% block content %}
+<section class="hero">
+    <div class="container hero-inner">
+        <div>
+            <p class="eyebrow">ЦВЕТОЧНЫЙ МАГАЗИН</p>
+            <h1>Цветы, которые<br><em>говорят за вас</em></h1>
+            <p class="hero-text">Собираем свежие букеты для важных моментов — от тёплого «спасибо» до большого признания.</p>
+            <a class="btn" href="{% url 'catalog' %}">Выбрать букет</a>
+        </div>
+        <div class="hero-art"><div class="flower flower1">✿</div><div class="flower flower2">❀</div><div class="flower flower3">✾</div></div>
+    </div>
+</section>
+
+<section class="section container">
+    <div class="section-head"><div><p class="eyebrow">ПОПУЛЯРНОЕ</p><h2>Любимые букеты</h2></div><a href="{% url 'catalog' %}">Весь каталог →</a></div>
+    <div class="products">
+        {% for product in products %}
+        <article class="card">
+            <a href="{{ product.get_absolute_url }}">
+                {% if product.image %}<img src="{{ product.image.url }}" alt="{{ product.name }}">{% else %}<div class="placeholder">🌸</div>{% endif %}
+            </a>
+            <div class="card-body">
+                <small>{{ product.category.name }}</small>
+                <h3><a href="{{ product.get_absolute_url }}">{{ product.name }}</a></h3>
+                <div class="price">{{ product.price }} сом</div>
+                <a class="btn btn-small" href="{% url 'cart_add' product.id %}">В корзину</a>
+            </div>
+        </article>
+        {% empty %}<p>Запустите <code>python manage.py seed_demo</code>, чтобы добавить товары.</p>{% endfor %}
+    </div>
+</section>
+
+<section class="about" id="about"><div class="container about-grid">
+    <div><p class="eyebrow">ПОЧЕМУ BIOFLORA</p><h2>Красота в каждой детали</h2></div>
+    <div class="features"><div><b>01</b><h3>Свежесть</h3><p>Работаем со свежими цветами и собираем заказ перед доставкой.</p></div><div><b>02</b><h3>Забота</h3><p>Каждый букет оформляется вручную с вниманием к деталям.</p></div><div><b>03</b><h3>Удобство</h3><p>Оформите заказ онлайн — мы свяжемся с вами для подтверждения.</p></div></div>
+</div></section>
+{% endblock %}

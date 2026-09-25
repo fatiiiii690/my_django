@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% block title %}Каталог — BioFlora{% endblock %}
+{% block content %}
+<section class="section container">
+    <div class="catalog-title"><p class="eyebrow">BIOFLORA</p><h1>Каталог цветов</h1></div>
+    <form class="search" method="get"><input name="q" value="{{ query }}" placeholder="Найти букет..."><button>Поиск</button></form>
+    <div class="categories">
+        <a class="{% if not current_category %}active{% endif %}" href="{% url 'catalog' %}">Все</a>
+        {% for category in categories %}<a class="{% if current_category == category %}active{% endif %}" href="{% url 'category' category.slug %}">{{ category.name }}</a>{% endfor %}
+    </div>
+    <div class="products">
+    {% for product in products %}
+        <article class="card">
+            <a href="{{ product.get_absolute_url }}">{% if product.image %}<img src="{{ product.image.url }}" alt="{{ product.name }}">{% else %}<div class="placeholder">🌷</div>{% endif %}</a>
+            <div class="card-body"><small>{{ product.category.name }}</small><h3><a href="{{ product.get_absolute_url }}">{{ product.name }}</a></h3><p>{{ product.description|truncatechars:80 }}</p><div class="card-bottom"><strong class="price">{{ product.price }} сом</strong><a class="btn btn-small" href="{% url 'cart_add' product.id %}">+</a></div></div>
+        </article>
+    {% empty %}<p>Ничего не найдено.</p>{% endfor %}
+    </div>
+</section>
+{% endblock %}

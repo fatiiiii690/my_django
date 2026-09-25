@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% block title %}Оформление заказа — BioFlora{% endblock %}
+{% block content %}
+<section class="section container narrow">
+<h1>Оформление заказа</h1>
+<div class="checkout">
+<form method="post">{% csrf_token %}{{ form.non_field_errors }}
+{% for field in form %}<label>{{ field.label }}{{ field }}{% for error in field.errors %}<small class="error">{{ error }}</small>{% endfor %}</label>{% endfor %}
+<button class="btn" type="submit">Подтвердить заказ</button></form>
+<aside><h3>Ваш заказ</h3>{% for item in items %}<p>{{ item.product.name }} × {{ item.quantity }} <span>{{ item.subtotal }} сом</span></p>{% endfor %}<hr><strong>Итого: {{ total }} сом</strong></aside>
+</div>
+</section>
+{% endblock %}

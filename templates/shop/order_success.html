@@ -1,0 +1,7 @@
+{% extends "base.html" %}
+{% block title %}Заказ принят — BioFlora{% endblock %}
+{% block content %}
+<section class="section container narrow center">
+<div class="success-icon">✓</div><p class="eyebrow">ГОТОВО</p><h1>Спасибо за заказ!</h1><p>Ваш заказ №{{ order.id }} принят. Мы свяжемся с вами по телефону {{ order.phone }} для подтверждения.</p><a class="btn" href="{% url 'catalog' %}">Вернуться в каталог</a>
+</section>
+{% endblock %}
